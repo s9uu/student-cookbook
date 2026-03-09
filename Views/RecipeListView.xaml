@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="StudentCookbook.Views.RecipeListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+        <WrapPanel x:Name="RecipesWrapPanel"
+                   Margin="5"/>
+
+    </ScrollViewer>
+
+</UserControl>

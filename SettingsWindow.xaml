@@ -1,0 +1,39 @@
+﻿<Window x:Class="StudentCookbook.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudentCookbook"
+        mc:Ignorable="d"
+        Title="Zmień ustawienia"
+        Height="240"
+        Width="300"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource WindowBackgroundBrush}">
+
+    <StackPanel Margin="25">
+
+        <TextBlock Text="Wybierz motyw aplikacji"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   Foreground="{DynamicResource PrimaryTextBrush}"
+                   Margin="0,0,0,20"/>
+
+        <Button Content="🌞 Jasny"
+                Height="45"
+                Margin="0,0,0,15"
+                Background="#fffd6a"
+                Foreground="Black"
+                BorderThickness="0"
+                Click="Light_Click"/>
+
+        <Button Content="🌙 Ciemny"
+                Height="45"
+                Background="#690569"
+                Foreground="White"
+                BorderThickness="0"
+                Click="Dark_Click"/>
+
+    </StackPanel>
+</Window>
