@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace StudentCookbook.Views
 {
-    /// <summary>
-    /// Logika interakcji dla klasy RecipeListView.xaml
-    /// </summary>
     public partial class RecipeListView : UserControl
     {
         public RecipeListView()

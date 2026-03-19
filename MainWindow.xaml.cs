@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Configuration;
 
 namespace StudentCookbook
 {
@@ -51,6 +53,8 @@ namespace StudentCookbook
             deleteWindow.Owner = this;
             deleteWindow.ShowDialog();
         }
+
+
 
     }
 }
