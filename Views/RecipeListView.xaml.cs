@@ -12,68 +12,118 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using StudentCookbook.Repositories;
+using StudentCookbook.Model;
 
 namespace StudentCookbook.Views
 {
     public partial class RecipeListView : UserControl
     {
+        private IRecipeRepository repository;
+        
         public RecipeListView()
         {
             InitializeComponent();
-            GenerateTestRecipes();
+            
+            repository = new RecipeRepository();
+            LoadRecipes();
         }
 
-        private void GenerateTestRecipes()
+        private void LoadRecipes()
         {
-            for (int i = 1; i <= 20; i++)
+            var recipes = repository.GetAll();
+
+            RecipesWrapPanel.Children.Clear();
+
+            foreach (var recipe in recipes)
             {
-                Border card = new Border
-                {
-                    Width = 220,
-                    Height = 250,
-                    CornerRadius = new CornerRadius(15),
-                    Margin = new Thickness(10),
-                };
-
-                card.SetResourceReference(Control.BackgroundProperty, "CardBackgroundBrush");
-                card.SetResourceReference(Control.ForegroundProperty, "PrimaryTextBrush");
-
-                card.Cursor = Cursors.Hand;
-                card.MouseLeftButtonUp += Card_Click;
-
-                StackPanel stack = new StackPanel();
-
-                Border imagePlaceholder = new Border
-                {
-                    Height = 170,
-                    Background = System.Windows.Media.Brushes.LightGray,
-                    CornerRadius = new CornerRadius(15, 15, 0, 0)
-                };
-
-                TextBlock title = new TextBlock
-                {
-                    Text = "Przepis testowy " + i,
-                    Margin = new Thickness(10),
-                    FontWeight = FontWeights.SemiBold,
-                    FontSize = 16,
-                    TextWrapping = TextWrapping.Wrap
-                };
-
-                stack.Children.Add(imagePlaceholder);
-                stack.Children.Add(title);
-
-                card.Child = stack;
-
-                RecipesWrapPanel.Children.Add(card);
+                AddRecipeTile(recipe);
             }
         }
 
-        private void Card_Click(object sender, MouseButtonEventArgs e)
+        private void AddRecipeTile(Recipe recipe)
         {
-            RecipeDetailsView details = new RecipeDetailsView();
-            MainWindow main = (MainWindow)Application.Current.MainWindow;
-            main.MainContentArea.Content = details;
+            var tile = new Border
+            {
+                Width = 220,
+                Height = 250,
+                Margin = new Thickness(10),
+                CornerRadius = new CornerRadius(15),
+                Cursor = Cursors.Hand
+            };
+
+            tile.SetResourceReference(Control.BackgroundProperty, "CardBackgroundBrush");
+            tile.SetResourceReference(Control.ForegroundProperty, "PrimaryTextBrush");
+
+            var stack = new StackPanel();
+
+            var image = new Image
+            {
+                Height = 170,
+                Stretch = Stretch.UniformToFill
+            };
+
+            try
+            {
+                string imagePath;
+
+                if (!string.IsNullOrWhiteSpace(recipe.ImagePath))
+                {
+                    imagePath = $"pack://application:,,,/Images/{recipe.ImagePath}";
+                }
+                else
+                {
+                    imagePath = "pack://application:,,,/Images/placeholder-food.png";
+                }
+
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(imagePath, UriKind.Absolute);
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+
+                image.Source = bitmap;
+            }
+            catch
+            {
+                var fallback = new BitmapImage();
+                fallback.BeginInit();
+                fallback.UriSource = new Uri("pack://application:,,,/Images/placeholder-food.png");
+                fallback.CacheOption = BitmapCacheOption.OnLoad;
+                fallback.EndInit();
+
+                image.Source = fallback;
+            }
+
+
+            var text = new TextBlock
+            {
+                Text = recipe.Title,
+                Margin = new Thickness(10),
+                FontWeight = FontWeights.SemiBold,
+                FontSize = 16,
+                TextWrapping = TextWrapping.Wrap
+            };
+
+            stack.Children.Add(image);
+            stack.Children.Add(text);
+
+            tile.Child = stack;
+
+            // 🔥 kliknięcie kafelka
+            tile.MouseLeftButtonUp += (s, e) =>
+            {
+                OpenRecipeDetails(recipe);
+            };
+
+            RecipesWrapPanel.Children.Add(tile);
         }
 
+        private void OpenRecipeDetails(Recipe recipe)
+        {
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            var detailsView = new RecipeDetailsView(recipe);
+            mainWindow.MainContentArea.Content = detailsView;
+        }
     }
 }

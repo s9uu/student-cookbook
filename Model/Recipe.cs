@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StudentCookbook
+namespace StudentCookbook.Model
 {
-    internal class Recipe
+    public class Recipe
     {
         public int Id { get; set; }
 

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
+using StudentCookbook.Repositories;
 
 namespace StudentCookbook
 {
@@ -53,8 +54,5 @@ namespace StudentCookbook
             deleteWindow.Owner = this;
             deleteWindow.ShowDialog();
         }
-
-
-
     }
 }
