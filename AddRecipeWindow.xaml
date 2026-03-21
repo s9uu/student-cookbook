@@ -44,7 +44,9 @@
                     Width="120"
                     Height="40"
                     Margin="5"
-                    Background="{DynamicResource GreenButtonBrush}" Foreground="White"/>
+                    Background="{DynamicResource GreenButtonBrush}" 
+                    Foreground="White"
+                    Click="Add_Click"/>
         </StackPanel>
 
     </Grid>

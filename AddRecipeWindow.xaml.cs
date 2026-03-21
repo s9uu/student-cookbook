@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentCookbook.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using StudentCookbook.Repositories;
 
 namespace StudentCookbook
 {
@@ -22,6 +24,22 @@ namespace StudentCookbook
         public AddRecipeWindow()
         {
             InitializeComponent();
+        }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+            var recipe = new Recipe
+            {
+                Title = TitleTextBox.Text,
+                Ingredients = IngredientsTextBox.Text,
+                Instructions = InstructionsTextBox.Text,
+                ImagePath = ImagePathTextBox.Text
+            };
+
+            var repo = new RecipeRepository();
+            repo.Add(recipe);
+
+            this.Close();
         }
     }
 }

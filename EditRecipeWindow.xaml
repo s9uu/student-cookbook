@@ -25,7 +25,11 @@
         <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,0,0,30">
             <Label Content="Wybierz przepis do edycji:"
                    Foreground="{DynamicResource PrimaryTextBrush}"/>
-            <ComboBox x:Name="RecipeSelectorComboBox" Width="300" Height="30"/>
+            <ComboBox x:Name="RecipeComboBox" 
+                      Width="300" 
+                      Height="30"
+                      DisplayMemberPath="Title"
+                      SelectionChanged="RecipeComboBox_SelectionChanged"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="0,0,0,15">
@@ -49,7 +53,9 @@
                     Width="120"
                     Height="40"
                     Margin="5"
-                    Background="{DynamicResource YellowButtonBrush}" Foreground="White"/>
+                    Background="{DynamicResource YellowButtonBrush}" 
+                    Foreground="White"
+                    Click="Edit_Click"/>
         </StackPanel>
     </Grid>
 </Window>

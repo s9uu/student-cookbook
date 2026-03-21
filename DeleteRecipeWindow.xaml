@@ -24,7 +24,10 @@
         <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,0,0,20">
             <Label Content="Wybierz przepis do usunięcia:"
                    Foreground="{DynamicResource PrimaryTextBrush}"/>
-            <ComboBox x:Name="RecipesComboBox" Width="300" Height="30"/>
+            <ComboBox x:Name="RecipeComboBox" 
+                      Width="300" 
+                      Height="30"
+                      DisplayMemberPath="Title"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -33,7 +36,8 @@
                     Height="40"
                     Margin="5"
                     Background="{DynamicResource RedButtonBrush}" 
-                    Foreground="White"/>
+                    Foreground="White"
+                    Click="Delete_Click"/>
         </StackPanel>
     </Grid>
 </Window>

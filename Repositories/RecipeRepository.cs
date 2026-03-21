@@ -52,9 +52,68 @@ namespace StudentCookbook.Repositories
 
         // reszta metod na razie pusta
         public Recipe GetById(int id) { throw new System.NotImplementedException(); }
-        public void Add(Recipe recipe) { throw new System.NotImplementedException(); }
-        public void Update(Recipe recipe) { throw new System.NotImplementedException(); }
-        public void Delete(int id) { throw new System.NotImplementedException(); }
+        public void Add(Recipe recipe)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = @"
+                                INSERT INTO Recipes (Title, Ingredients, Instructions, ImagePath)
+                                VALUES (@Title, @Ingredients, @Instructions, @ImagePath)";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Title", recipe.Title);
+                    command.Parameters.AddWithValue("@Ingredients", recipe.Ingredients);
+                    command.Parameters.AddWithValue("@Instructions", recipe.Instructions);
+                    command.Parameters.AddWithValue("@ImagePath", recipe.ImagePath);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        public void Update(Recipe recipe)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = @"
+                                UPDATE Recipes
+                                SET Title = @Title,
+                                Ingredients = @Ingredients,
+                                Instructions = @Instructions,
+                                ImagePath = @ImagePath
+                                WHERE Id = @Id";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Title", recipe.Title);
+                    command.Parameters.AddWithValue("@Ingredients", recipe.Ingredients);
+                    command.Parameters.AddWithValue("@Instructions", recipe.Instructions);
+                    command.Parameters.AddWithValue("@ImagePath", recipe.ImagePath);
+                    command.Parameters.AddWithValue("@Id", recipe.Id);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        public void Delete(int id)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "DELETE FROM Recipes WHERE Id = @Id";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Id", id);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
         public List<Recipe> SearchByTitle(string title) { throw new System.NotImplementedException(); }
     }
 }

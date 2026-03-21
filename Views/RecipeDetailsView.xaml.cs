@@ -48,7 +48,7 @@ namespace StudentCookbook.Views
                 }
                 else
                 {
-                    imagePath = "pack://application:,,,/Images/placeholder-food.png";
+                    imagePath = "pack://application:,,,/Images/placeholder-food.jpg";
                 }
 
                 var bitmap = new BitmapImage();
@@ -63,7 +63,7 @@ namespace StudentCookbook.Views
             {
                 var fallback = new BitmapImage();
                 fallback.BeginInit();
-                fallback.UriSource = new Uri("pack://application:,,,/Images/placeholder-food.png");
+                fallback.UriSource = new Uri("pack://application:,,,/Images/placeholder-food.jpg");
                 fallback.CacheOption = BitmapCacheOption.OnLoad;
                 fallback.EndInit();
 

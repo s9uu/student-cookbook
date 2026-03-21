@@ -15,12 +15,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
 using StudentCookbook.Repositories;
+using StudentCookbook.Views;
 
 namespace StudentCookbook
 {
-    /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -41,18 +39,28 @@ namespace StudentCookbook
             var addWindow = new AddRecipeWindow();
             addWindow.Owner = this;
             addWindow.ShowDialog();
+            RefreshRecipes();
         }
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             var editWindow = new EditRecipeWindow();
             editWindow.Owner = this;
             editWindow.ShowDialog();
+            RefreshRecipes();
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             var deleteWindow = new DeleteRecipeWindow();
             deleteWindow.Owner = this;
             deleteWindow.ShowDialog();
+            RefreshRecipes();
+        }
+        public void RefreshRecipes()
+        {
+            if (MainContentArea.Content is RecipeListView view)
+            {
+                view.Refresh();
+            }
         }
     }
 }
