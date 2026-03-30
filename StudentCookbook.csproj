@@ -88,6 +88,7 @@
     <Compile Include="EditRecipeWindow.xaml.cs">
       <DependentUpon>EditRecipeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImageService.cs" />
     <Compile Include="Repositories\RecipeRepository.cs" />
     <Compile Include="Repositories\IRecipeRepository.cs" />
     <Compile Include="Settings.cs" />

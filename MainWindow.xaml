@@ -94,7 +94,8 @@
                         Background="{DynamicResource GreenButtonBrush}"
                         Foreground="White"
                         BorderThickness="0"
-                        Cursor="Hand">
+                        Cursor="Hand" 
+                        Click="SearchButton_Click">
                     </Button>
 
                 </StackPanel>

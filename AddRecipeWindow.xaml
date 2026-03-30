@@ -8,6 +8,10 @@
         Background="{DynamicResource WindowBackgroundBrush}">
 
     <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="229*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -22,13 +26,23 @@
                    HorizontalAlignment="Center"
                    Margin="0,0,0,20"/>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,15" VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Margin="0,49,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <Label Content="Zdjęcie:" VerticalAlignment="Center" Foreground="{DynamicResource PrimaryTextBrush}"/>
-            <TextBox x:Name="ImagePathTextBox" Width="300" Margin="5,0,0,0" Background="{DynamicResource CardBackgroundBrush}" Foreground="{DynamicResource PrimaryTextBrush}"/>
-            <Button Content="Wybierz..." Width="80" Margin="10,0,0,0"/>
+            <TextBox 
+                   x:Name="ImagePathTextBox" 
+                   Width="300" 
+                   Margin="5,0,0,0" 
+                   IsReadOnly="True"
+                   Background="{DynamicResource CardBackgroundBrush}" 
+                   Foreground="{DynamicResource PrimaryTextBrush}"/>
+            <Button 
+                   Content="Wybierz..." 
+                   Width="80" 
+                   Margin="10,0,0,0"
+                   Click="SelectImage_Click"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Margin="0,0,0,15">
+        <StackPanel Grid.Row="1" Margin="0,41,0,15" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <Label Content="Tytuł:" Foreground="{DynamicResource PrimaryTextBrush}"/>
             <TextBox x:Name="TitleTextBox" Height="30" Margin="0,0,0,10" Background="{DynamicResource CardBackgroundBrush}" Foreground="{DynamicResource PrimaryTextBrush}"/>
 
@@ -39,7 +53,7 @@
             <TextBox x:Name="InstructionsTextBox" Height="150" TextWrapping="Wrap" AcceptsReturn="True" Background="{DynamicResource CardBackgroundBrush}" Foreground="{DynamicResource PrimaryTextBrush}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0" Grid.ColumnSpan="2">
             <Button Content="➕ Dodaj"
                     Width="120"
                     Height="40"

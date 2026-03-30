@@ -1,5 +1,4 @@
-﻿using StudentCookbook.Repositories;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using StudentCookbook.Repositories;
 using StudentCookbook.Model;
+using System.IO;
 
 namespace StudentCookbook
 {
@@ -26,27 +26,44 @@ namespace StudentCookbook
             InitializeComponent();
 
             repository = new RecipeRepository();
-            LoadRecipes();
+            LoadRecipes(); //metoda wczytuje ponownie wszystkie przepisy z bazy, by móc je wyświetlić w ComboBoxie
         }
 
+        //Metoda wypełniająca zawartość ComboBoxa listą przepisów
         private void LoadRecipes()
         {
             RecipeComboBox.ItemsSource = repository.GetAll();
         }
+
+        //Metoda obsługująca zdarzenie wciśnięcia przycisku do potwierdzenia usunięcia
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             if (RecipeComboBox.SelectedItem is Recipe recipe)
             {
-                var result = MessageBox.Show(
-                    $"Czy na pewno chcesz usunąć '{recipe.Title}'?",
-                    "Potwierdzenie",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Warning);
-
-                if (result == MessageBoxResult.Yes)
+                //Obsługa wyjątku błędu przy usuwaniu
+                try
                 {
-                    repository.Delete(recipe.Id);
+                    //usuwa plik graficzny jeśli wciąż istnieje w folderze "Images" programu
+                    if (!string.IsNullOrWhiteSpace(recipe.ImagePath))
+                    {
+                        string fullPath = System.IO.Path.Combine(
+                            AppDomain.CurrentDomain.BaseDirectory,
+                            "Images",
+                            recipe.ImagePath
+                        );
+
+                        if (System.IO.File.Exists(fullPath))
+                        {
+                            File.Delete(fullPath);
+                        }
+                    }
+
+                    repository.Delete(recipe.Id); //metoda z repozytorium usuwająca wybraną zawartość z bazy
                     this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd podczas usuwania: " + ex.Message);
                 }
             }
         }

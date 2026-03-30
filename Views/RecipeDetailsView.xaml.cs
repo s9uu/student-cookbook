@@ -17,9 +17,6 @@ using StudentCookbook.Model;
 
 namespace StudentCookbook.Views
 {
-    /// <summary>
-    /// Logika interakcji dla klasy RecipeDetailsView.xaml
-    /// </summary>
     public partial class RecipeDetailsView : UserControl
     {
         private Recipe _recipe;
@@ -31,50 +28,22 @@ namespace StudentCookbook.Views
             _recipe = recipe;
             LoadData();
         }
-
+        
+        //Metoda wczytująca dane z obiektu do pozycji w oknie XAML
         private void LoadData()
         {
             TitleTextBlock.Text = _recipe.Title;
             IngredientsTextBlock.Text = _recipe.Ingredients;
             InstructionsTextBlock.Text = _recipe.Instructions;
 
-            try
-            {
-                string imagePath;
-
-                if (!string.IsNullOrWhiteSpace(_recipe.ImagePath))
-                {
-                    imagePath = $"pack://application:,,,/Images/{_recipe.ImagePath}";
-                }
-                else
-                {
-                    imagePath = "pack://application:,,,/Images/placeholder-food.jpg";
-                }
-
-                var bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(imagePath, UriKind.Absolute);
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.EndInit();
-
-                RecipeImage.Source = bitmap;
-            }
-            catch
-            {
-                var fallback = new BitmapImage();
-                fallback.BeginInit();
-                fallback.UriSource = new Uri("pack://application:,,,/Images/placeholder-food.jpg");
-                fallback.CacheOption = BitmapCacheOption.OnLoad;
-                fallback.EndInit();
-
-                RecipeImage.Source = fallback;
-            }
+            RecipeImage.Source = ImageService.Load(_recipe.ImagePath); //metoda z pliku klasy ImageService
         }
 
+        //Metoda obsługująca zdarzenie kliknięcia przycisku powrotu
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             MainWindow main = (MainWindow)Application.Current.MainWindow;
-            main.MainContentArea.Content = new RecipeListView();
+            main.MainContentArea.Content = new RecipeListView(); //zmiana widoku na listę
         }
     }
 }

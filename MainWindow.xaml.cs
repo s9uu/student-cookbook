@@ -21,12 +21,14 @@ namespace StudentCookbook
 {
     public partial class MainWindow : Window
     {
+        //Konstruktor domyślnie ustawia widok na listę przepisów
         public MainWindow()
         {
             InitializeComponent();
             MainContentArea.Content = new Views.RecipeListView();
         }
 
+        //Metody obsługujące zdarzenie kliknięcia w dane przyciski
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             var settingsWindow = new SettingsWindow();
@@ -39,8 +41,9 @@ namespace StudentCookbook
             var addWindow = new AddRecipeWindow();
             addWindow.Owner = this;
             addWindow.ShowDialog();
-            RefreshRecipes();
+            RefreshRecipes(); //odświeżanie widoku listy by dynamicznie uwzględnić ewentualne zmiany
         }
+
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             var editWindow = new EditRecipeWindow();
@@ -48,6 +51,7 @@ namespace StudentCookbook
             editWindow.ShowDialog();
             RefreshRecipes();
         }
+
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             var deleteWindow = new DeleteRecipeWindow();
@@ -55,11 +59,20 @@ namespace StudentCookbook
             deleteWindow.ShowDialog();
             RefreshRecipes();
         }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainContentArea.Content is RecipeListView view)
+            {
+                view.Search(SearchTextBox.Text);
+            }
+        }
+
         public void RefreshRecipes()
         {
             if (MainContentArea.Content is RecipeListView view)
             {
-                view.Refresh();
+                view.Refresh(); //metoda z pliku RecipeListView.xaml.cs odświeżająca zawartość widoku
             }
         }
     }
