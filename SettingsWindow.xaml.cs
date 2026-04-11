@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace StudentCookbook
 {
-    /// <summary>
-    /// Logika interakcji dla klasy SettingsWindow.xaml
-    /// </summary>
     public partial class SettingsWindow : Window
     {
         public SettingsWindow()

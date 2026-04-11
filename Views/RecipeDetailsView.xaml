@@ -51,6 +51,7 @@
 
                 <TextBlock x:Name="IngredientsTextBlock" 
                        Text=""
+                       TextWrapping="Wrap"
                        FontSize="20"
                        Margin="0,3"
                        Foreground="{DynamicResource PrimaryTextBrush}"/>
@@ -72,12 +73,13 @@
             <Border Background="{DynamicResource WindowBackgroundBrush}"
                 CornerRadius="10"
                 Padding="15">
-
-                <TextBlock x:Name="InstructionsTextBlock" 
+                <ScrollViewer MaxHeight="75">
+                    <TextBlock x:Name="InstructionsTextBlock" 
                        TextWrapping="Wrap"
                        FontSize="20"
                        Foreground="{DynamicResource PrimaryTextBrush}"
                        Text=""/>
+                </ScrollViewer>
             </Border>
 
             <!-- POWRÓT -->
